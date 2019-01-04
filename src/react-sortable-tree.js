@@ -272,7 +272,17 @@ class ReactSortableTree extends Component {
       getNodeKey: this.props.getNodeKey,
     });
 
-    this.props.onChange(treeData);
+    this.props.onChange(treeData, 'move', {
+      treeData,
+      node,
+      treeIndex,
+      path,
+      nextPath: path,
+      nextTreeIndex: treeIndex,
+      prevPath,
+      prevTreeIndex,
+      nextParentNode,
+    });
 
     this.props.onMoveNode({
       treeData,
@@ -768,7 +778,7 @@ class ReactSortableTree extends Component {
 }
 
 ReactSortableTree.propTypes = {
-  dragDropManager: PropTypes.shape({}).isRequired,
+  dragDropManager: PropTypes.shape({getMonitor: PropTypes.func}).isRequired,
 
   // Tree data in the following format:
   // [{title: 'main', subtitle: 'sub'}, { title: 'value2', expanded: true, children: [{ title: 'value3') }] }]
